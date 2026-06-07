@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aidan McGinnis — Cybersecurity Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c14;
+  --bg2: #0d1220;
+  --bg3: #111827;
+  --green: #00d4a0;
+  --green2: #00a87e;
+  --blue: #3b9eff;
+  --blue2: #1a6fcc;
+  --text: #e8edf5;
+  --muted: #6b7a94;
+  --border: rgba(0,212,160,0.15);
+  --border2: rgba(59,158,255,0.15);
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green2); border-radius: 2px; }
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background: rgba(8,12,20,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span { color: var(--green); }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--green); }
+
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--green);
+  color: var(--green) !important;
+  padding: 6px 16px;
+  border-radius: 2px;
+  transition: background 0.2s !important;
+}
+
+.nav-cta:hover { background: rgba(0,212,160,0.1) !important; }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 100px 48px 60px;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,160,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,160,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,212,160,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-glow2 {
+  position: absolute;
+  bottom: -100px;
+  left: 30%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(59,158,255,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-label {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.1s forwards;
+}
+
+.hero-label::before {
+  content: '▶ ';
+  opacity: 0.6;
+}
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.2s forwards;
+}
+
+.hero-name .accent { color: var(--green); }
+
+.hero-role {
+  font-family: var(--display);
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 400;
+  color: var(--muted);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.3s forwards;
+}
+
+.hero-role span { color: var(--blue); }
+
+.hero-bio {
+  max-width: 580px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.4s forwards;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.5s forwards;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #080c14;
+  padding: 12px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-primary:hover { background: #00f0b8; transform: translateY(-1px); }
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 12px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+.btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+/* Terminal block hero right */
+.hero-terminal {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.terminal-bar {
+  background: var(--bg3);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #febc2e; }
+.dot.g { background: #28c840; }
+
+.terminal-title {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+  letter-spacing: 0.05em;
+}
+
+.terminal-body {
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.t-cmd { color: var(--green); }
+.t-out { color: var(--muted); }
+.t-val { color: var(--blue); }
+.t-warn { color: #febc2e; }
+.t-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Stats bar */
+.stats-bar {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-n {
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.stat-l {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Sections */
+section {
+  padding: 80px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 48px;
+  line-height: 1.1;
+}
+
+.section-title span { color: var(--green); }
+
+/* Projects grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px;
+  transition: border-color 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.project-card:hover {
+  border-color: rgba(0,212,160,0.4);
+  transform: translateY(-2px);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-card.featured {
+  border-color: rgba(0,212,160,0.3);
+  grid-column: span 2;
+}
+
+.project-card.featured::before { opacity: 0.5; }
+
+.project-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.tag-red { background: rgba(255,80,80,0.12); color: #ff6b6b; border: 1px solid rgba(255,80,80,0.2); }
+.tag-green { background: rgba(0,212,160,0.1); color: var(--green); border: 1px solid var(--border); }
+.tag-blue { background: rgba(59,158,255,0.1); color: var(--blue); border: 1px solid var(--border2); }
+.tag-yellow { background: rgba(254,188,46,0.1); color: #febc2e; border: 1px solid rgba(254,188,46,0.2); }
+
+.project-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.project-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.project-bullets {
+  list-style: none;
+  margin-bottom: 18px;
+}
+
+.project-bullets li {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.project-bullets li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.tech-pill {
+  font-size: 10px;
+  padding: 3px 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* Experience */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--green), var(--blue), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -37px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 8px rgba(0,212,160,0.4);
+}
+
+.timeline-dot.blue {
+  background: var(--blue);
+  box-shadow: 0 0 8px rgba(59,158,255,0.4);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exp-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.exp-date {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.exp-company {
+  font-size: 13px;
+  color: var(--green);
+  margin-bottom: 14px;
+  letter-spacing: 0.05em;
+}
+
+.exp-bullets {
+  list-style: none;
+}
+
+.exp-bullets li {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 4px 0 4px 18px;
+  position: relative;
+  line-height: 1.65;
+}
+
+.exp-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-size: 11px;
+  top: 6px;
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.skill-group {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.skill-group-title {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-group-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 2px;
+  color: var(--text);
+  letter-spacing: 0.03em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.skill-tag:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* Contact */
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-text {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 3px;
+  background: var(--bg2);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.contact-link-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-form {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus { border-color: var(--green); }
+
+textarea.form-input { resize: vertical; min-height: 100px; }
+
+.form-submit {
+  width: 100%;
+  background: var(--green);
+  color: #080c14;
+  border: none;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.form-submit:hover { background: #00f0b8; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+footer span { color: var(--green); }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-terminal { display: none; }
+  section { padding: 60px 24px; }
+  .stats-bar { padding: 28px 24px; gap: 40px; }
+  .contact-wrapper { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  footer { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">AM<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-label">Available for hire · Orland Park, IL</div>
+    <div class="hero-name">Aidan<br><span class="accent">McGinnis</span></div>
+    <div class="hero-role">SOC Analyst &amp; <span>Detection Engineer</span></div>
+    <div class="hero-bio">
+      CS &amp; Cybersecurity graduate with 3+ years enterprise IT experience. 
+      I break into systems, investigate incidents, build detections, and 
+      harden cloud infrastructure — then document everything.
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+
+    <!-- Terminal -->
+    <div class="hero-terminal">
+      <div class="terminal-bar">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+        <span class="terminal-title">aidan@kali ~ whoami</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-cmd">$ </span><span class="t-val">cat profile.txt</span></div>
+        <div class="t-out">───────────────────</div>
+        <div><span class="t-out">Name:   </span><span class="t-val">Aidan McGinnis</span></div>
+        <div><span class="t-out">Role:   </span><span class="t-val">SOC / Detection Eng</span></div>
+        <div><span class="t-out">Exp:    </span><span class="t-val">3+ yrs Enterprise IT</span></div>
+        <div><span class="t-out">Degree: </span><span class="t-val">CS + Cybersecurity</span></div>
+        <div class="t-out">───────────────────</div>
+        <div><span class="t-cmd">$ </span><span class="t-val">cat skills.txt</span></div>
+        <div><span class="t-warn">[+]</span><span class="t-out"> Penetration Testing</span></div>
+        <div><span class="t-warn">[+]</span><span class="t-out"> DFIR &amp; Log Analysis</span></div>
+        <div><span class="t-warn">[+]</span><span class="t-out"> SIEM (Splunk, Wazuh)</span></div>
+        <div><span class="t-warn">[+]</span><span class="t-out"> AWS Cloud Security</span></div>
+        <div><span class="t-warn">[+]</span><span class="t-out"> MITRE ATT&amp;CK</span></div>
+        <div><span class="t-cmd">$ </span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-n">3+</div>
+    <div class="stat-l">Years Enterprise IT</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">8+</div>
+    <div class="stat-l">Security Projects</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">CVE</div>
+    <div class="stat-l">Identified &amp; Exploited</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">ATT&amp;CK</div>
+    <div class="stat-l">TTP Mapped</div>
+  </div>
+</div>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-label">// work</div>
+  <div class="section-title">Featured <span>Projects</span></div>
+
+  <div class="projects-grid">
+
+    <!-- 532Corp - Featured -->
+    <div class="project-card featured fade-in">
+      <div class="project-tag tag-red">Penetration Testing</div>
+      <div class="project-title">532Corp Enterprise Penetration Test</div>
+      <div class="project-desc">Full-scope black-box penetration test of a simulated corporate network, identifying CVEs, achieving root-level compromise, and mapping the full attack chain to MITRE ATT&CK.</div>
+      <ul class="project-bullets">
+        <li>Reconnaissance &amp; enumeration across 82.46.91.0/24 — full attack surface mapping</li>
+        <li>OSINT-driven credential harvesting to support password attacks via Hydra &amp; John the Ripper</li>
+        <li>Exploited specific CVEs to achieve root/admin-level access on target systems</li>
+        <li>Post-exploitation: privilege escalation, lateral movement, sensitive data discovery</li>
+        <li>Full TTP mapping to MITRE ATT&CK — TA0001, TA0004, TA0006, TA0008, TA0010</li>
+        <li>Delivered structured pentest report with risk ratings &amp; remediation recommendations</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">Kali Linux</span>
+        <span class="tech-pill">Nmap</span>
+        <span class="tech-pill">Hydra</span>
+        <span class="tech-pill">John the Ripper</span>
+        <span class="tech-pill">MITRE ATT&CK</span>
+        <span class="tech-pill">OWASP Top 10</span>
+        <span class="tech-pill">CVE Analysis</span>
+      </div>
+    </div>
+
+    <!-- HeliosAI DFIR -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-yellow">DFIR</div>
+      <div class="project-title">HeliosAI Digital Forensics &amp; IR</div>
+      <div class="project-desc">Simulated DFIR engagement — memory and disk forensics, IOC identification, attack timeline reconstruction, and formal investigative reporting.</div>
+      <ul class="project-bullets">
+        <li>Volatility memory analysis: suspicious processes, injected code, network artifacts</li>
+        <li>Autopsy disk forensics: deleted file recovery, registry hives, prefetch analysis</li>
+        <li>IOC cataloguing: anomalous logins, file mods, persistence mechanisms</li>
+        <li>ATT&CK mapping: TA0001, TA0002, TA0003, TA0005</li>
+        <li>Formal DFIR report with chain-of-custody practices</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">Autopsy</span>
+        <span class="tech-pill">Volatility</span>
+        <span class="tech-pill">Wireshark</span>
+        <span class="tech-pill">PowerShell</span>
+        <span class="tech-pill">Windows Forensics</span>
+        <span class="tech-pill">MITRE ATT&CK</span>
+      </div>
+    </div>
+
+    <!-- Enterprise Virtual Network -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-green">Blue Team</div>
+      <div class="project-title">Enterprise Virtual Network + SIEM</div>
+      <div class="project-desc">Multi-machine virtual enterprise network with integrated security monitoring, SIEM log analysis, firewall segmentation, and infrastructure services.</div>
+      <ul class="project-bullets">
+        <li>VMware ESXi multi-VM environment simulating production network</li>
+        <li>pfSense firewall: NAT, port forwarding, network segmentation</li>
+        <li>Wazuh SIEM: log aggregation, threat detection, suspicious activity analysis</li>
+        <li>Core services: DNS, LDAP, mail server (dovecot), Nagios monitoring</li>
+        <li>Wireshark packet analysis and full network architecture documentation</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">VMware ESXi</span>
+        <span class="tech-pill">pfSense</span>
+        <span class="tech-pill">Wazuh</span>
+        <span class="tech-pill">Splunk</span>
+        <span class="tech-pill">Nagios</span>
+        <span class="tech-pill">Wireshark</span>
+      </div>
+    </div>
+
+    <!-- IDS on AWS -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-blue">Cloud Security</div>
+      <div class="project-title">Cloud-Based IDS on AWS</div>
+      <div class="project-desc">Designed and deployed a cloud-native Intrusion Detection System on AWS to monitor, detect, and alert on suspicious activity in real time.</div>
+      <ul class="project-bullets">
+        <li>EC2 instances simulating production environment with live log generation</li>
+        <li>CloudWatch centralized log collection and threat detection</li>
+        <li>Detected brute-force SSH attempts and identified malicious IP patterns</li>
+        <li>Alerting mechanisms for unauthorized access and anomalous behavior</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">AWS EC2</span>
+        <span class="tech-pill">CloudWatch</span>
+        <span class="tech-pill">Linux</span>
+        <span class="tech-pill">SSH Analysis</span>
+        <span class="tech-pill">Log Analysis</span>
+      </div>
+    </div>
+
+    <!-- AWS IAM -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-blue">Cloud Security</div>
+      <div class="project-title">AWS IAM Hardening &amp; VPC Traffic Analysis</div>
+      <div class="project-desc">Least-privilege IAM environment with RBAC validation and VPC Flow Log analysis — simulating enterprise cloud audit and monitoring scenarios.</div>
+      <ul class="project-bullets">
+        <li>Scoped IAM policies: S3 bucket-level GetObject, EC2 read-only Describe</li>
+        <li>Identified and fixed policy misconfigurations causing unexpected allow/deny behavior</li>
+        <li>VPC Flow Logs → CloudWatch: ACCEPT/REJECT analysis at packet level</li>
+        <li>Trust policies scoped to vpc-flow-logs.amazonaws.com service principal</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">AWS IAM</span>
+        <span class="tech-pill">VPC Flow Logs</span>
+        <span class="tech-pill">CloudWatch</span>
+        <span class="tech-pill">RBAC</span>
+        <span class="tech-pill">Least Privilege</span>
+      </div>
+    </div>
+
+    <!-- Hospital Pentest -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-red">Penetration Testing</div>
+      <div class="project-title">Hospital Network Penetration Test</div>
+      <div class="project-desc">Multi-stage penetration test across six systems in a simulated hospital environment, using real-world offensive techniques and MITRE ATT&CK mapping.</div>
+      <ul class="project-bullets">
+        <li>Exploitation via Metasploit, credential attacks, and misconfiguration abuse</li>
+        <li>Post-exploitation: privilege escalation, lateral movement, data discovery</li>
+        <li>Full MITRE ATT&CK framework mapping of all identified TTPs</li>
+        <li>Remediation report with vulnerability risk ratings</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">Metasploit</span>
+        <span class="tech-pill">Nmap</span>
+        <span class="tech-pill">Nessus</span>
+        <span class="tech-pill">MITRE ATT&CK</span>
+        <span class="tech-pill">Windows/Linux</span>
+      </div>
+    </div>
+
+    <!-- AWS VPC -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-blue">Cloud Networking</div>
+      <div class="project-title">AWS VPC Network Isolation Study</div>
+      <div class="project-desc">Comparative analysis of three AWS network isolation architectures — Internet, PrivateLink, and VPC Peering — evaluating security tradeoffs in cross-VPC service access.</div>
+      <ul class="project-bullets">
+        <li>AWS PrivateLink: NLB-backed endpoint service with acceptance control</li>
+        <li>VPC Peering: non-overlapping CIDR, bilateral route table updates</li>
+        <li>Documented security tradeoffs across all three patterns</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">AWS VPC</span>
+        <span class="tech-pill">PrivateLink</span>
+        <span class="tech-pill">NLB</span>
+        <span class="tech-pill">VPC Peering</span>
+        <span class="tech-pill">Network Security</span>
+      </div>
+    </div>
+
+    <!-- NutriNavigator -->
+    <div class="project-card fade-in">
+      <div class="project-tag tag-green">Full Stack</div>
+      <div class="project-title">NutriNavigator — Android App</div>
+      <div class="project-desc">Full-stack Android nutrition tracking app built in an Agile team environment, with Spring Boot backend, REST APIs, WebSockets, and CI/CD pipelines via Gradle.</div>
+      <ul class="project-bullets">
+        <li>Spring Boot backend with RESTful API endpoints and MySQL schema</li>
+        <li>WebSocket-based real-time notifications</li>
+        <li>Unit tests for backend/API logic integrated into Gradle CI/CD pipeline</li>
+        <li>Swagger API docs, Javadoc standards, GitLab version control</li>
+      </ul>
+      <div class="project-tech">
+        <span class="tech-pill">Java</span>
+        <span class="tech-pill">Spring Boot</span>
+        <span class="tech-pill">MySQL</span>
+        <span class="tech-pill">REST APIs</span>
+        <span class="tech-pill">CI/CD</span>
+        <span class="tech-pill">Gradle</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" style="background: var(--bg2); max-width: 100%; padding: 80px 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 48px;">
+    <div class="section-label">// career</div>
+    <div class="section-title">Work <span>Experience</span></div>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-title">IT Support Analyst → Student Supervisor</div>
+          <div class="exp-date">2021 – 2025</div>
+        </div>
+        <div class="exp-company">Iowa State University — Agronomy IT Department</div>
+        <ul class="exp-bullets">
+          <li>Managed and supported enterprise endpoints across Active Directory, MECM, and Jamf for faculty and staff</li>
+          <li>Resolved hardware, software, and network incidents — reducing ticket backlog through systematic troubleshooting</li>
+          <li>Promoted to Student Supervisor — led and trained a team of junior IT technicians</li>
+          <li>Implemented security hardening measures across managed workstations and documented procedures via Confluence</li>
+          <li>Participated in department-wide VoIP migration from Cisco to Yealink Teams-integrated endpoints (50+ users)</li>
+          <li>Maintained endpoint compliance and patch management processes across Windows and macOS environments</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot blue"></div>
+        <div class="exp-header">
+          <div class="exp-title">Stagehand / Assistant Foreman</div>
+          <div class="exp-date">Seasonal</div>
+        </div>
+        <div class="exp-company">C.Y. Stephens Auditorium — Oak View Group</div>
+        <ul class="exp-bullets">
+          <li>Executed load-in and load-out for large-scale live production events under time-critical conditions</li>
+          <li>Progressed to Assistant Foreman — coordinating crew logistics and equipment staging</li>
+          <li>Developed strong operational discipline, team coordination, and composure under pressure</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-label">// toolkit</div>
+  <div class="section-title">Skills &amp; <span>Tools</span></div>
+
+  <div class="skills-grid">
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Offensive Security</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Kali Linux</span>
+        <span class="skill-tag">Nmap</span>
+        <span class="skill-tag">Metasploit</span>
+        <span class="skill-tag">Hydra</span>
+        <span class="skill-tag">John the Ripper</span>
+        <span class="skill-tag">Burp Suite</span>
+        <span class="skill-tag">Nessus</span>
+        <span class="skill-tag">OWASP Top 10</span>
+        <span class="skill-tag">CVE Exploitation</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">DFIR &amp; Detection</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Autopsy</span>
+        <span class="skill-tag">Volatility</span>
+        <span class="skill-tag">Wireshark</span>
+        <span class="skill-tag">Splunk</span>
+        <span class="skill-tag">Wazuh</span>
+        <span class="skill-tag">Log Analysis</span>
+        <span class="skill-tag">MITRE ATT&CK</span>
+        <span class="skill-tag">IOC Analysis</span>
+        <span class="skill-tag">Sigma Rules</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Cloud &amp; Infrastructure</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS EC2</span>
+        <span class="skill-tag">AWS IAM</span>
+        <span class="skill-tag">VPC / Flow Logs</span>
+        <span class="skill-tag">CloudWatch</span>
+        <span class="skill-tag">PrivateLink</span>
+        <span class="skill-tag">VMware ESXi</span>
+        <span class="skill-tag">pfSense</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Windows Server</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Enterprise IT</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">MECM</span>
+        <span class="skill-tag">Jamf</span>
+        <span class="skill-tag">PowerShell</span>
+        <span class="skill-tag">Confluence</span>
+        <span class="skill-tag">Endpoint Management</span>
+        <span class="skill-tag">Patch Management</span>
+        <span class="skill-tag">Ticketing Systems</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C / C++</span>
+        <span class="skill-tag">Bash / Shell</span>
+        <span class="skill-tag">Spring Boot</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Git / GitLab</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Frameworks &amp; Certs</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MITRE ATT&CK</span>
+        <span class="skill-tag">NIST CSF</span>
+        <span class="skill-tag">OWASP</span>
+        <span class="skill-tag">Security+ (pursuing)</span>
+        <span class="skill-tag">eJPT (pursuing)</span>
+        <span class="skill-tag">Agile / Scrum</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" style="background: var(--bg2); max-width: 100%; padding: 80px 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 48px;">
+    <div class="section-label">// connect</div>
+    <div class="section-title">Get In <span>Touch</span></div>
+
+    <div class="contact-wrapper">
+      <div>
+        <div class="contact-text">
+          I'm actively seeking SOC Analyst and Detection Engineer roles. 
+          If you're looking for someone who can hit the ground running with 
+          hands-on security experience and 3+ years of enterprise IT background — 
+          let's talk.
+        </div>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/aidan-mcginnis/" target="_blank" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            linkedin.com/in/aidan-mcginnis
+          </a>
+          <a href="mailto:aidan@email.com" class="contact-link">
+            <span class="contact-link-icon">@</span>
+            aidan@email.com
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">gh</span>
+            github.com/aidanmcginnis
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">📄</span>
+            Download Resume
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about the opportunity..."></textarea>
+        </div>
+        <button class="form-submit">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div>Aidan McGinnis — <span>Cybersecurity Portfolio</span></div>
+  <div>CS &amp; Cybersecurity · Iowa State University · <span>2025</span></div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
